@@ -1,3 +1,4 @@
+<a href="https://codeclimate.com/github/PauloVitorRocha/Trabalho-Individual-2020-2/maintainability"><img src="https://api.codeclimate.com/v1/badges/22ee924a4896fc0ae056/maintainability" /></a>
 # Trabalho Individual 2020.2
 
 
