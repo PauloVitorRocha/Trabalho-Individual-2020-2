@@ -1,90 +1,43 @@
 <a href="https://codeclimate.com/github/PauloVitorRocha/Trabalho-Individual-2020-2/maintainability"><img src="https://api.codeclimate.com/v1/badges/22ee924a4896fc0ae056/maintainability" /></a>
 # Trabalho Individual 2020.2
 
+| Nome | Matrícula |
+| ---- | --------- |
+| Paulo Vítor Coelho da Rocha | 17/0062465 |
 
-A Gestão de Configuração de Software é parte fundamental no curso de GCES, e dominar os conhecimentos de configuração de ambiente, containerização, virtualização, integração e deploy contínuo tem se tornado cada vez mais necessário para ingressar no mercado de trabalho.
+# 1. Containerização
+Foi criado um Dockerfile para cada aplicação, um dentro da pasta /api e o outro na pasta /client
 
-Para exercitar estes conhecimentos, você deverá aplicar os conceitos estudados ao longo da disciplina no produto de software contido neste repositório.
+O container do banco de dados é criado diretamente no arquivo docker-compose.yml utilizando a imagem do postgres13.
 
-O sistema se trata de uma aplicação Web, cuja funcionalidade consiste numa lista de tarefas, que é composta de:
-- Front-end escrito em Javascript, utilizando os frameworks Vue.JS e Quasar;
-- Back-end escrito em Django REST;
-- Banco de Dados PostgreSQL;
+# 2. Integração contínua
+A integração continua foi feita por meio da utilização da ferramenta TravisCI onde foi criado um arquivo chamado .travis.yml, e esse arquivo é responsável por realizar duas tarefas:
+  - Rodar os testes da api e verificar se o código está de acordo com as recomendações do flake8;
+  - Rodar os testes do client e verificar se o código está de acordo com as recomendações do eslint;
 
-Para executar a aplicação em sua máquina, basta seguir o passo-a-passo descrito no arquivos s README das pastas [api](./api/README.md) e [client](./client/README.md).
+A coleta de métricas foi feita com a ferramenta CodeClimate e podemos ver a sua badge no topo do README onde está escrito Maintainability A.
 
+E podemos ve-los em funcionamento ao tentar fazer um Pull Request com código ¨ruim¨:
+![image](https://user-images.githubusercontent.com/37215459/116953963-0033c800-ac65-11eb-92c6-ad446b3a1647.png)
+onde houve falha na build na hora de verificar se o código respeita o flake8 através do TravisCI, e também há indicação de que o código inserido tem o fluxo de controle muito aninhado através do CodeClimate
 
-## Critérios de avaliação
-
-### 1. Containerização
-
-A aplicação deverá ter seu ambiente completamente containerizado. Desta forma, cada subsistema (Front-end, Back-end e Banco de Dados) deverá ser isolado em um container individual.
-
-Deverá ser utilizado um orquestrador para gerenciar comunicação entre os containers, o uso de credenciais, networks, volumes, entre outras configurações necessárias para a correta execução da aplicação.
-
-Para realizar esta parte do trabalho, recomenda-se a utilização das ferramentas:
-
-- Docker versão 17.04.0+
-- Docker Compose com sintaxe na versão 3.2+
-
-### 2. Integração contínua
-
-Você deverá criar um 'Fork' deste repositório, onde será desenvolvida sua solução. Nele, cada commit submetido deverá passar por um sistema de integração contínua, realizando os seguintes estágios:
-
-- Build: Construção completa do ambiente;
-- Testes: Os testes automatizados da aplicação devem ser executados;
-- Análise Estática de código: Deverá ser realizada a integração com algum serviço externo de análise estática de código fonte (Ex: Code Climate), análise de folhas de estilo (Stylesheet / Linter);
-- Análise de cobertura de testes: Devera será ser incluida também uma ferramenta para apontar a métrica de cobertura de testes.
-
-O sistema de integração contínua deve exibir as informações de cada pipeline, e impedir que trechos de código que não passem corretamente por todo o processo sejam adicionados à 'branch default' do repositório.
-
-Para esta parte do trabalho, poderá ser utilizada qualquer tecnologia ou ferramenta que o aluno desejar, como GitlabCI, Actions, TravisCI, CircleCI, Jenkins, CodeClimate, entre outras.
-
-### 3. Deploy contínuo
-
-Também deve ser feita a configuração de um pipeline de modo a publicar a aplicação automaticamente, sempre que um novo trecho de código seja integrado à branch default.
-
-Assim como na Integração Contínua, poderá ser utilizado qualquer servidor de cloud que o aluno desejar, como DigitalOcean, Heroku, AWS, entre outros.
-
-### 4. Kubernets (extra)
-
-Caso cumpra todos os requisitos descritos acima, será atribuída uma pontuação extra para o aluno que configure o deploy com Kubernets.
-
-## Nota
-
-A nota de cada aluno será a soma dos itens abaixo que serão avaliados tanto de forma quantitativa (se foi realizado a implementação + documentação), quanto qualitativamente (como foi implementado, entendimento dos conceitos na prática, complexidade da solução). Faça os commits atômicos, bem documentados, completos a fim de facilitar o entendimento e avaliação do seu trabalho. Lembrando que esse trabalho é individual. 
-
-Os Itens de avaliação são (cada item tem peso 1 na nota final de 0 - 10):
-
-**1. Containerização**
-
-- Container do Back-end
-- Container do Front-end
-- Container do Banco de Dados
-- Automação entre os containers (Docker-compose)
-
-**2. Integração contínua (Front-end)**
-
-- Build: Construção completa do ambiente
-- Testes: Os testes automatizados da aplicação devem ser executados
-- Coleta de métricas: Deverá ser realizada a integração com algum serviço externo de coleta de métricas de qualidade;
-
-Regras de avaliação: O sistema de integração contínua deve exibir as informações de cada pipeline, e impedir que trechos de código que não passem corretamente por todo o processo sejam adicionados à 'branch default' do repositório.
-
-**3. Integração contínua (Back-end)**
-
-- Build: Construção completa do ambiente
-- Testes: Os testes automatizados da aplicação devem ser executados
-- Coleta de métricas: Deverá ser realizada a integração com algum serviço externo de coleta de métricas de qualidade;
-
-Regras de avaliação: O sistema de integração contínua deve exibir as informações de cada pipeline, e impedir que trechos de código que não passem corretamente por todo o processo sejam adicionados à 'branch default' do repositório.
-
-**4. Coverage (Extra)**
-
-Caso cumpra todos os requisitos obrigatórios descritos acima, será atribuída uma pontuação extra para o aluno que configure sua pipeline de modo a coletar a porcentagem de cobertura de testes na aplicação (Back end e Front end).
-
-**5. Deploy contínuo (Extra)**
-
-Caso cumpra todos os requisitos obrigatórios descritos acima, será atribuída uma pontuação extra para o aluno que configure sua pipeline de modo a publicar a aplicação automaticamente, sempre que um novo trecho de código seja integrado à branch default.
-
+# 3. Rodando
+Para dar início à aplicação primeiro precisamos clonar o repositório com o comando:
+``` 
+git clone https://github.com/PauloVitorRocha/Trabalho-Individual-2020-2.git
+```
+Em seguida, para dar início à aplicação em execução em ambiente docker, basta entrar na pasta raiz do projeto com o comando:
+``` 
+cd Trabalho-Individual-2020-2
+```
+e executar o comando:
+``` 
+docker-compose up --build
+```
+se houver algum problema de permissão rode utilizando o comando:
+``` 
+sudo docker-compose up --build
+```
+O resultado deve ser esse só que com detalhes sobre as migrações da api
+![image](https://user-images.githubusercontent.com/37215459/116953562-fc537600-ac63-11eb-90a3-fc5c3864014e.png)
 
