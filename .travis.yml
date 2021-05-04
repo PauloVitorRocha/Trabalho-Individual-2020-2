@@ -21,3 +21,4 @@ jobs:
       - yarn add --dev jest
       - yarn add eslint --dev
       - yarn test:unit:coverage
+      - yarn eslint --ext .js,.vue
